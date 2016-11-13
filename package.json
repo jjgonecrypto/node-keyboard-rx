@@ -1,0 +1,25 @@
+{
+  "name": "node-keyboard-rx",
+  "version": "1.0.0",
+  "description": "RxJS support and examples for node-keyboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint ."
+  },
+  "keywords": [
+    "node-keyboard-rx"
+  ],
+  "author": "justin j. moses <justinjmoses@gmail.com>",
+  "license": "MIT",
+  "repository": "justinjmoses/node-keyboard-rx",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "rxjs": "^5.0.0-rc.2",
+    "node-examples": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.9.1"
+  }
+}
