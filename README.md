@@ -12,7 +12,7 @@ If you installed node-keyboard globally, then install this plugin via `npm i -g 
 If you cloned it instead, then inside the clone, run `npm i node-keyboard-rx`
 
 ###Run
-Start node keyboard (`node-keyboard` or `node keyboard` if cloned) and then `require('node-keyboard-rx)()`.
+Start node keyboard (`node-keyboard` or `node keyboard` if cloned) and then `require('node-keyboard-rx')()`.
 
 ###Examples
 Examples available as getters via the `rx_example_` prefix. 
