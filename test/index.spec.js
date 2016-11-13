@@ -33,7 +33,7 @@ describe('node-keyboard-rx', function() {
         })
 
         describe('stream function', () => {
-            let readable, observable, onNext, onError, onComplete
+            let readable, observable, onNext, onError, onComplete, subscription
 
             beforeEach(() => {
                 readable = new Readable({
@@ -45,7 +45,8 @@ describe('node-keyboard-rx', function() {
                 onNext = sinon.spy()
                 onError = sinon.spy()
                 onComplete = sinon.spy()
-                observable.subscribe(onNext, onError, onComplete)
+                subscription = observable.subscribe(onNext, onError, onComplete)
+                sinon.spy(subscription, 'unsubscribe')
             })
 
             describe('when the underlying stream emits', () => {
@@ -80,10 +81,28 @@ describe('node-keyboard-rx', function() {
                     })
                 })
             })
-        })
-    })
 
-    it('is truthy', () => {
-        assert(rxKeyboard, 'rxKeyboard must be truthy')
+            describe('when SIGINT is triggered in the repl', () => {
+                beforeEach(() => {
+                    sinon.stub(process.stdout, 'write') // hide REPL message
+                    replServer.emit('SIGINT')
+                    process.stdout.write.restore()
+                })
+
+                it('unsubscribe is triggered', () => {
+                    assert(subscription.unsubscribe.callCount, 1)
+                })
+
+                describe('when the underlying stream emits', () => {
+                    beforeEach(() => {
+                        readable.push(123)
+                    })
+
+                    it('onNext does not fire', () => {
+                        assert.equal(onNext.callCount, 0)
+                    })
+                })
+            })
+        })
     })
 })
