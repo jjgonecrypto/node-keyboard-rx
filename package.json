@@ -1,6 +1,6 @@
 {
   "name": "node-keyboard-rx",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "RxJS support and examples for node-keyboard",
   "main": "index.js",
   "scripts": {
