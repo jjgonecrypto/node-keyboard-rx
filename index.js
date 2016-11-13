@@ -4,10 +4,12 @@ const Writable = require('stream').Writable
 const examples = require('node-examples')
 
 const path = require('path')
-const repl = require('repl').repl
+const repl = require('repl')
 const Rx = require('rxjs/Rx')
 
 module.exports = () => {
+    const currentRepl = repl.repl
+
     let _subscriptions = []
 
     const subscribe = Rx.Observable.prototype.subscribe
@@ -18,7 +20,7 @@ module.exports = () => {
         return subscriber
     }
 
-    Rx.cleanup = () => {
+    const cleanup = () => {
         _subscriptions.forEach(s => s.unsubscribe())
         _subscriptions = []
     }
@@ -39,9 +41,9 @@ module.exports = () => {
 
             const writable = new Writable({
                 objectMode: true,
-                write(chunk, enc, callback) {
+                write(chunk, enc, next) {
                     observer.next(chunk)
-                    callback(null, chunk)
+                    next()
                 }
             })
             stream.addListener('error', errorHandler)
@@ -58,10 +60,10 @@ module.exports = () => {
         })
     }
 
-    // On .break (CTRL+C), unpipe everything, just in case
-    repl.on('SIGINT', () => Rx.cleanup())
+    // On .break (CTRL+C), end all subscriptions
+    currentRepl.on('SIGINT', cleanup)
 
-    repl.context.Rx = Rx
+    currentRepl.context.Rx = Rx
 
     examples({ path: path.join(__dirname, 'examples'), prefix: 'rx_example_' })
 

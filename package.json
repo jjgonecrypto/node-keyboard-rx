@@ -4,7 +4,7 @@
   "description": "RxJS support and examples for node-keyboard",
   "main": "index.js",
   "scripts": {
-    "test": "eslint ."
+    "test": "eslint . && mocha"
   },
   "keywords": [
     "node-keyboard-rx"
@@ -20,6 +20,8 @@
     "node-examples": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^3.9.1"
+    "eslint": "^3.9.1",
+    "mocha": "^3.1.2",
+    "sinon": "^1.17.6"
   }
 }
