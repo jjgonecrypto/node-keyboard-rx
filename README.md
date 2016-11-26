@@ -23,3 +23,8 @@ EXAMPLES available as getters via the `rx_example_` prefix.
 
 E.g. `rx_example_01_projections()` or `rx_example_02_modes(d)`
 
+##See it in action
+I spoke on node-keyboard at EmpireNode in November 2016.
+
+Here's the excerpt for `node-keyboard-rx`:
+[![image](https://cloud.githubusercontent.com/assets/799038/20642899/5461015a-b3e9-11e6-983b-30ef885ba610.png)](https://youtu.be/Wa5-DePTWdA?t=1074)
